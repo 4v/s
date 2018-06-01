@@ -26,7 +26,8 @@ def coin_huobi(code):
 def render_stock(stock):
     parameter = request.query.get('parameter', None)
     if parameter: parameter = int(parameter)
-    m = model.SlopeModel(stock['prices'][-1000:], parameter=parameter)
+    m = model.SlopeModel(stock['prices'][-1000:],
+                         stock['name'], parameter=parameter)
     m.run()
     chart = m.get_chart()
     #print(chart)

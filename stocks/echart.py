@@ -3,7 +3,7 @@
 import util
 import json
 
-def make_chart1(prices, buyLine, sellLine, actions):
+def make_chart1(prices, buyLine, sellLine, actions, sname):
     upColor = '#ec0000'
     downColor = '#00da3c'
     upBorderColor = '#8A0000'
@@ -26,7 +26,7 @@ def make_chart1(prices, buyLine, sellLine, actions):
     dates = [util.format_datetime(price['time']) for price in prices]
     result = {
         'title': {
-            'text': '标题',
+            'text': sname,
             'left': 0
         },
         'tooltip': {

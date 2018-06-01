@@ -9,10 +9,11 @@ def run(prices):
     return SlopeModel(prices).run()
 
 class SlopeModel:
-    def __init__(self, prices, parameter=None):
+    def __init__(self, prices, sname, parameter=None):
         if parameter is None: parameter = 21
         self.prices = prices
         self.parameter = parameter
+        self.sname = sname
 
     def run(self):
         buyLine = self.getBuyLine()
@@ -30,7 +31,7 @@ class SlopeModel:
         return self.mActions
 
     def get_chart(self):
-        return echart.make_chart1(self.prices, self.mBuyLine, self.mSellLine, self.mActions)
+        return echart.make_chart1(self.prices, self.mBuyLine, self.mSellLine, self.mActions, self.sname)
 
     def print_line(self, values):
         dates = [e['time'] for e in self.prices]

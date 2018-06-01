@@ -212,13 +212,14 @@ class EastMoney:
         # 前复权
         url = 'http://pdfm2.eastmoney.com/EM_UBG_PDTI_Fast/api/js?id=%s&TYPE=k&rtntype=5&isCR=false&authorityType=fa' % stockId
         result = util.http_get(url)
-        prices = self.parse_prices(result)
-        return {'code': stockCode, 'prices': prices}
+        return self.parse_prices(result)
 
     def parse_prices(self, text):
         text = text[1:-1]
         j = json.loads(text)
         prices = []
+        sname = j['name']
+        scode = j['code']
         for e in j['data']:
             split = e.split(',')
             price = {
@@ -229,7 +230,7 @@ class EastMoney:
                 'low':float(split[4]),
             }
             prices.append(price)
-        return prices
+        return {'code': scode, 'name':sname, 'prices': prices}
 
 class Tongdaxin:
     def __init__(self, path):
