@@ -26,9 +26,9 @@ class DayDayFund:
         result = util.http_get(url)
         return self.parse_prices(result, code)
 
-    def parse_prices(self, code, response):
+    def parse_prices(self, response, code):
         fname = self.get_var_define(response, 'var fS_name = ')
-        v = self.get_var_define(response, 'var Data_ACWorthTrend = ');
+        v = self.get_var_define(response, 'var Data_ACWorthTrend = ')
         v = json.loads(v)
         last_price = None
         prices = []
@@ -49,11 +49,12 @@ class DayDayFund:
         return {'code': code, 'name': fname, 'prices': prices}
 
     def get_var_define(self, response, prefix):
-        for line in response.splitlines():
+        lines = response.splitlines()
+        for line in lines:
             if not line.startswith(prefix):
                 continue
             return line[len(prefix):-1]
-        raise Exception('not find var')
+        raise Exception('not find var %s' % prefix)
 
 class Huobi:
     LOG_FILE = 'huobi.log'
