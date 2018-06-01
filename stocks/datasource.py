@@ -24,14 +24,14 @@ class DayDayFund:
         # 请求天天基金的接口，拿到累计净值数据
         url = 'http://fund.eastmoney.com/pingzhongdata/%s.js' % code
         result = util.http_get(url)
-        prices = self.parse_prices(result)
-        return {'code': code, 'prices': prices}
+        return self.parse_prices(result, code)
 
-    def parse_prices(self, response):
+    def parse_prices(self, code, response):
+        fname = self.get_var_define(response, 'var fS_name = ')
         v = self.get_var_define(response, 'var Data_ACWorthTrend = ');
         v = json.loads(v)
         last_price = None
-        result = []
+        prices = []
         for timestamp,price in v:
             time = datetime.datetime.fromtimestamp(timestamp / 1000, TIMEZONE)
             if last_price is None:
@@ -39,14 +39,14 @@ class DayDayFund:
             else:
                 open,high,low,close = last_price, max(last_price, price), min(last_price, price), price
             last_price = price
-            result.append({
+            prices.append({
                 'time': time,
                 'open': open,
                 'close': close,
                 'high': high,
                 'low': low,
             })
-        return result
+        return {'code': code, 'name': fname, 'prices': prices}
 
     def get_var_define(self, response, prefix):
         for line in response.splitlines():
@@ -95,6 +95,7 @@ class Huobi:
         # 封装结果
         return {
             'code': code,
+            'name': code,
             'prices': self.as_prices(merged_kline)
         }
 
