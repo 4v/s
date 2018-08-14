@@ -27,7 +27,7 @@ def make_chart1(prices, buyLine, sellLine, actions, sname):
     result = {
         'title': {
             'text': sname,
-            'left': 0
+            'left': 50
         },
         'tooltip': {
             'trigger': 'axis',

@@ -8,6 +8,11 @@ import json
 
 from bottle import route, run, template, request
 
+@route('/index.html')
+def indexrt():
+    stock = datasource.EastMoney().load_one('sh000001')
+    return render_stock(stock)
+
 @route('/s/<code>')
 def index(code):
     stock = datasource.EastMoney().load_one(code)
@@ -39,6 +44,7 @@ def html_chart(chart):
 <html>
 <head>
     <meta charset="utf-8">
+    <title>爱量化</title>
     <script src="https://cdn.bootcss.com/echarts/4.1.0/echarts.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -48,11 +54,14 @@ def html_chart(chart):
         }
         var stockCode = getUrlSCode();
     </script>
+    <style type="text/css">
+        body { margin: 30px; }
+    </style>
 </head>
 <body>
-    <div id="sname" align="center"></div>
+    <div id="sname" align="right" style="width:800px;border-bottom:solid 1px grey">
     <input id="parameter" type="input" onkeydown="show();"/> 
-    <button id="applyButton">修改</button>
+    <button id="applyButton">修改</button></div>
     <div id="main" style="width:800px;height:400px;"></div>
     <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('main'));
