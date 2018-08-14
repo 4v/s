@@ -8,7 +8,7 @@ import json
 
 from bottle import route, run, template, request
 
-@route('/index.html')
+@route('/')
 def indexrt():
     stock = datasource.EastMoney().load_one('sh000001')
     return render_stock(stock)
