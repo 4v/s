@@ -55,14 +55,15 @@ def html_chart(chart):
         var stockCode = getUrlSCode();
     </script>
     <style type="text/css">
-        body { margin: 30px; }
+        body { margin: 30px; font-family:Didot,"Microsoft YaHei","微软雅黑","Times New Roman",Georgia,Serif }
+        .wt { width:808px;font-size: 13px;}
     </style>
 </head>
 <body>
-    <div id="sname" align="right" style="width:800px;border-bottom:solid 1px grey">
+    <div id="sname" align="right" style="border-bottom:solid 1px grey" class="wt">
     <input id="parameter" type="input" onkeydown="show();"/> 
     <button id="applyButton">修改</button></div>
-    <div id="main" style="width:800px;height:400px;"></div>
+    <div id="main" style="width:808px;height:400px;"></div>
     <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('main'));
         var option = %s;
@@ -93,8 +94,9 @@ def html_chart(chart):
             }
         }
     </script>
+    <div align="center" class="wt"> Q群:243755300 </div>
 </body>
 </html>
 ''' % chart)
 
-run(host='0.0.0.0', port=8081)
+run(host='127.0.0.1', port=8081)
