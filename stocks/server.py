@@ -94,7 +94,7 @@ def html_chart(chart):
             }
         }
     </script>
-    <div align="center" class="wt"> Q群:243755300 </div>
+    <div align="center" class="wt"> Q群:243755300, WechatGroup </div>
 </body>
 </html>
 ''' % chart)
