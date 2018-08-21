@@ -61,7 +61,7 @@ def html_chart(chart):
 </head>
 <body>
     <div id="sname" align="right" style="border-bottom:solid 1px grey" class="wt">
-    <input id="parameter" type="input" onkeydown="show();"/> 
+    <input id="parameter" type="input" value="sh000001" onkeydown="show();"/> 
     <button id="applyButton">修改</button></div>
     <div id="main" style="width:808px;height:400px;"></div>
     <script type="text/javascript">
