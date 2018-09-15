@@ -92,7 +92,7 @@ def html_chart(chart):
             scode = parameterInput.value;
             if(scode){
                 var perfix;
-                if(urltp){
+                if(urltp=="/s"||urltp=="/f"||urltp=="/ch"){
                     perfix = urltp;
                 }else{
                     perfix="/s";
