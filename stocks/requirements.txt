@@ -2,19 +2,19 @@
 # https://github.com/damnever/pigar
 
 # bottle.py: 3903
-Jinja2 == 2.10
+Jinja2 >= 2.10
 
 # bottle.py: 57,3415
-gevent == 1.2.2
+gevent >= 1.2.2
 
 # datasource.py: 9
-pytz == 2017.3
+pytz >= 2017.3
 
 # util.py: 8
-requests == 2.18.4
+requests >= 2.18.4
 
 # bottle.py: 3360
-tornado == 4.5.3
+tornado >= 4.5.3
 
 # huobi.py: 4
-websocket_client == 0.47.0
+websocket_client >= 0.47.0

@@ -48,11 +48,19 @@ def html_chart(chart):
     <script src="https://cdn.bootcss.com/echarts/4.1.0/echarts.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
+
+        var stockCode;
+        var locurl;
+        var urltp;
         function getUrlSCode(){
             var localurl=window.location.href;  //取得整个地址栏
-            return localurl.substring(localurl.lastIndexOf("/")+1,localurl.length);
+            stockCode=localurl.substring(localurl.lastIndexOf("/")+1,localurl.length);
+            locurl=localurl.substring(0,localurl.lastIndexOf("/"));
+            if(locurl){
+                urltp=locurl.substring(locurl.lastIndexOf("/"),locurl.length);
+            }
         }
-        var stockCode = getUrlSCode();
+        getUrlSCode();
     </script>
     <style type="text/css">
         body { margin: 30px; font-family:Didot,"Microsoft YaHei","微软雅黑","Times New Roman",Georgia,Serif }
@@ -83,8 +91,13 @@ def html_chart(chart):
         applyButton.onclick = function() {
             scode = parameterInput.value;
             if(scode){
-                console.log(scode);
-                window.location.href="/s/"+scode; 
+                var perfix;
+                if(urltp){
+                    perfix = urltp;
+                }else{
+                    perfix="/s";
+                }
+                window.location.href=perfix+"/"+scode; 
             }
         }
         function show() {
