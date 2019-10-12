@@ -203,9 +203,10 @@ class Huobi:
 class EastMoney:
     def load_one(self, stockCode):
         # 解析股票代码
-        if stockCode.startswith('sh'):
+        lowerstock = stockCode.lower()
+        if lowerstock.startswith('sh'):
             stockId = stockCode[2:] + '1'
-        elif stockCode.startswith('sz'):
+        elif lowerstock.startswith('sz'):
             stockId = stockCode[2:] + '2'
         else:
             raise Exception('bad stock code: ' + str(stockCode))

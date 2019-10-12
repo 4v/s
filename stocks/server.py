@@ -107,7 +107,14 @@ def html_chart(chart):
             }
         }
     </script>
+    <!-- 
     <div align="center" class="wt"> Q群:243755300 </div>
+    -->
+    <br>
+    <br>
+    <hr>
+    <div align="center" class="wt"> Author：乾朗Jonathan </div>
+    <hr>
 </body>
 </html>
 ''' % chart)
