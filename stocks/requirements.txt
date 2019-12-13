@@ -24,3 +24,5 @@ tornado
 # huobi.py: 4
 # websocket_client == 0.47.0
 websocket_client
+
+# pandas

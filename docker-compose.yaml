@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    container_name: stocks-web
+    image: py3talib
+    build: .
+    volumes:
+      - ./stocks:/app
+    ports:
+      - 8081:8081
+    entrypoint:
+        - /bin/sh
+        - -c
+        - |
+            pip install -r /app/requirements.txt 
+            cd /app && gunicorn -b 0.0.0.0:8081 -w 2 server:app
+    
+#   redis:
+#     image: redis
