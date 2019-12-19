@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>ShadowStock 影子证券 - 设置</title>
+    <link href="content/bootstrap.css" rel="stylesheet" />
+    <link href="content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="content/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid container-settings">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="refreshInterval">刷新间隔（秒）</label>
+                    <select id="refreshInterval" class="form-control input-sm">
+                        <option value="3000">3</option>
+                        <option value="5000">5</option>
+                        <option value="8000">8</option>
+                        <option value="10000">10</option>
+                        <option value="30000">30</option>
+                        <option value="60000">60</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <label for="displayColumns" class="text-danger">显示栏位</label>
+                    <select id="displayColumns" class="form-control input-sm" multiple></select>
+                </div>
+            </div>
+            <div class="col-xs-2 col-toolbar-vertical">
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-xs btn-success" data-action="addColumn">＜ 添加</button>
+                    <button type="button" class="btn btn-xs btn-success" data-action="removeColumn">删除 ＞</button>
+                </div>
+                <div class="clearfix"></div>
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-xs btn-default" data-action="moveColumnUp">∧ 上移</button>
+                    <button type="button" class="btn btn-xs btn-default" data-action="moveColumnDown">∨ 下移</button>
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <label for="availableColumns">可用栏位</label>
+                    <select id="availableColumns" class="form-control input-sm" multiple></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-sm btn-danger" data-result="save">保存</button>
+                <button type="button" class="btn btn-sm btn-default" data-result="cancel">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 初始化
+            var _args = JSON.parse(unescape(window.location.href.substr(window.location.href.indexOf('?') + 1)));
+
+            var _refreshInterval = $('#refreshInterval').val(_args.refreshInterval);
+
+            var _availableColumns = $('#availableColumns').empty().dblclick(function () {
+                $('[data-action="addColumn"]').click();
+            });
+            var availableColumnsLength = _args.availableColumns.length;
+            for (var i = 0; i < availableColumnsLength; i++) {
+                $('<option>').val(_args.availableColumns[i].id).text(_args.availableColumns[i].name)
+                    .appendTo(_availableColumns);
+            }
+
+            var _displayColumns = $('#displayColumns').empty().dblclick(function () {
+                $('[data-action="removeColumn"]').click();
+            });
+            var displayColumnsLength = _args.displayColumns.length;
+            for (var i = 0; i < displayColumnsLength; i++) {
+                _availableColumns.children('option[value="' + _args.displayColumns[i].id + '"]')
+                    .appendTo(_displayColumns);
+            }
+
+            $('[data-action]').click(function () {
+                switch ($(this).data('action')) {
+                    case 'addColumn':
+                        _availableColumns.children('option:selected').appendTo(_displayColumns);
+                        _displayColumns.focus();
+                        break;
+                    case 'removeColumn':
+                        _displayColumns.children('option:selected').appendTo(_availableColumns);
+                        _availableColumns.focus();
+                        break;
+
+                    case 'moveColumnUp':
+                        var selectedItems = _displayColumns.children('option:selected');
+                        var reference = selectedItems.prev('option:not(:selected)').first();
+                        if (reference) {
+                            selectedItems.insertBefore(reference);
+                            _displayColumns.focus();
+                        }
+                        break;
+                    case 'moveColumnDown':
+                        var selectedItems = _displayColumns.children('option:selected');
+                        var reference = selectedItems.next('option:not(:selected)').last();
+                        if (reference) {
+                            selectedItems.insertAfter(reference);
+                            _displayColumns.focus();
+                        }
+                        break;
+                }
+            });
+            $('[data-result]').click(function () {
+                var displayColumns = [];
+                var hasActionsColumn = false;
+                _displayColumns.children('option').each(function (i) {
+                    var item = $(this);
+                    var id = item.val();
+                    displayColumns[i] = { id: id, name: item.text() };
+                    if (id == _args.actionsColumnId) {
+                        hasActionsColumn = true;
+                    }
+                });
+
+                if (!hasActionsColumn) {
+                    if (!confirm('不显示【操作】栏位则无法进行排序、编辑和删除操作，确定继续吗？')) {
+                        return;
+                    }
+                }
+
+                var args = {
+                    token: _args.token,
+                    result: $(this).data('result'),
+                    refreshInterval: _refreshInterval.val(),
+                    displayColumns: displayColumns
+                };
+                eval('window.parent.' + _args.callback + '(args)');
+            });
+        });
+    </script>
+</body>
+</html>

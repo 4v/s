@@ -1,0 +1,110 @@
+﻿body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.container-fluid {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  padding: 3px;
+}
+
+.ad {
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.show-grid {
+    margin-bottom: 5px;
+}
+.show-grid-lg {
+    margin-bottom: 10px;
+}
+
+.container-action .glyphicon {
+    margin: 0px 3px;
+}
+
+.alert {
+    padding: 5px 15px;
+    margin-bottom: 5px;
+}
+
+#logo {
+    font-weight: bold;
+}
+
+th,
+td {
+    cursor: default;
+}
+
+[role="handle"] {
+    cursor: move;
+}
+td.positive {
+    color: red;
+}
+td.negative {
+    color: green;
+}
+
+.input-group-addon.btn-warning,
+.input-group-addon.btn-danger {
+    color: #fff;
+}
+
+.ui-sortable-helper {
+    display: table;
+}
+
+.popover {
+    max-width: 1000px;
+}
+iframe.editor {
+    border: 0;
+    width: 220px;
+    height: 120px;
+}
+.container-editor {
+    width: 210px;
+}
+iframe.settings {
+    border: 0;
+    width: 510px;
+    height: 280px;
+}
+.container-settings {
+    width: 500px;
+}
+#displayColumns,
+#availableColumns {
+    height: 120px;
+}
+.col-toolbar-vertical {
+    padding-top: 30px;
+    line-height: 50px;
+    text-align: center;
+}
+
+iframe.impexp {
+    border: 0;
+    width: 510px;
+    height: 235px;
+}
+.container-impexp {
+    width: 500px;
+}
+
+#stockTable td.btn-default {
+    background-color: transparent;
+}

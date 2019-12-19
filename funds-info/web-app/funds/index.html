@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" media="all" href="css/layer.css">
+    <script type="text/javascript" src="js/lib/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="/ssindex"></script>
+    <script type="text/javascript" src="/cybindex"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="js/lib/echarts_full.js"></script>
+</head>
+<body>
+    <div id="indexss" style="width: 800px;height:50px;font-size: 14px; font-family:Sans-serif Helvetica">
+      <div class="contentBox" style="border-top: 0;">
+          <div class="quote dapan_index" id="zjlx_hqcont">
+              <ul>
+                  <li id="qqgs1">
+                      <p>
+                          <strong>上证</strong>:<span id="shhq"></span>亿元(涨:<b id="shz"></b> 平:<b id="shp"></b>跌:<b id="shd"></b>)
+                      </p>
+                      <p>
+                          <strong>深证</strong>:<span id="szhq"></span>亿元(涨:<b id="szz"></b>平:<b id="szp"></b>跌:<b id="szd"></b>)
+                      </p>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+    <hr>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的Dom -->
+    <div id="main-area" style="padding-left : 65px; float:left;">
+        <div id="container" style="height:500px;width:900px;border:1px solid #ccc;float:left;">
+        </div>
+		<div id="chatarea-btm" style="padding-left : 65px; float:left;">
+			<div style="display:inline"><img src="http://goldprice.org/NewCharts/gold/images/gold_1d_o_USD.png" alt="黄金 美元/盎司" width="180" height="114"></div>
+			<div style="display:inline"><img src="https://goldprice.org/charts/silver_1d_o_USD.png" alt="白银 美元/盎司" width="180" height="114"></div>
+			<div style="display:inline"><img src="http://www.goldprice.org/NewCharts/gold/images/gold_1d_o_GBP.png" alt="黄金 英磅/盎司" width="180" height="114"></div>
+			<div style="display:inline"><img src="http://www.goldprice.org/NewCharts/gold/images/gold_1d_g_CNY.png" alt="黄金 RMB/g" width="180" height="114"></div>
+			<!--<div style="display:inline"><img src="https://goldprice.org/charts/silver_1d_g_CNY_z.png" alt="白银 RMB/g" width="180" height="114"></div> -->
+			<div style="display:inline">金银比: </div>
+		</div>
+    </div>
+    <script src="js/mainfunds.js"></script>
+
+
+</body>
+</html>

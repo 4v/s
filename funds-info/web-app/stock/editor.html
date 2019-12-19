@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>ShadowStock 影子证券 - 编辑器</title>
+    <link href="content/bootstrap.css" rel="stylesheet" />
+    <link href="content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="content/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid container-editor">
+        <div class="row show-grid">
+            <div class="col-xs-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">成本价</span>
+                    <input type="text" class="form-control text-right" id="cost" placeholder="示例: 12.34" />
+                    <span class="input-group-addon">元</span>
+                </div>
+            </div>
+        </div>
+        <div class="row show-grid">
+            <div class="col-xs-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">持有量</span>
+                    <input type="text" class="form-control text-right" id="quantity" placeholder="示例: 1000" />
+                    <span class="input-group-addon">股</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-sm btn-danger" data-result="save">保存</button>
+                <button type="button" class="btn btn-sm btn-warning" data-result="clear">清除</button>
+                <button type="button" class="btn btn-sm btn-default" data-result="cancel">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var _elements = $('input, button');
+            var _intelliEnter = function (event) {
+                if (event.keyCode == 13) {
+                    var next = _elements[_elements.index($(this)) + 1];
+                    if (next.tagName == 'BUTTON') {
+                        next.click();
+                    }
+                    else {
+                        next.focus();
+                    }
+                    event.preventDefault();
+                }
+            }
+            var _intelliFocus = function () {
+                $(this).select();
+            }
+
+            // 初始化
+            var _args = JSON.parse(unescape(window.location.href.substr(window.location.href.indexOf('?') + 1)));
+            $('#cost').val($.isNumeric(_args.cost) ? _args.cost : '').bind({
+                keydown: _intelliEnter,
+                focus: _intelliFocus
+            }).focus();
+            $('#quantity').val($.isNumeric(_args.quantity) ? _args.quantity : '').bind({
+                keydown: _intelliEnter,
+                focus: _intelliFocus
+            });
+
+            $('[data-result]').click(function () {
+                var args = {
+                    token: _args.token,
+                    result: $(this).data('result')
+                };
+
+                $('.form-control').each(function () {
+                    var control = $(this);
+                    args[control.attr('id')] = control.val();
+                });
+
+                eval('window.parent.' + _args.callback + '(args)');
+            });
+        });
+    </script>
+</body>
+</html>
