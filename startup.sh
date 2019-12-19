@@ -19,9 +19,10 @@ function docker_yuminstall()
         https://download.docker.com/linux/centos/docker-ce.repo
 
     yum makecache fast
-    yum install docker-ce docker-ce-cli containerd.io
+    yum install -y docker-ce docker-ce-cli containerd.io
     systemctl start docker
     docker ps
+    pip install docker-compose
 }
 
 function docker_install()
