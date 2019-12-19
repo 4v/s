@@ -5,7 +5,7 @@ import model
 import util
 import account
 import json
-
+import bottle
 from bottle import app, route, run, template, request
 
 @route('/')
@@ -35,6 +35,8 @@ def render_stock(stock):
                          stock['name'], parameter=parameter)
     m.run()
     chart = m.get_chart()
+    print("bottle.TEMPLATE_PATH=%s" % bottle.TEMPLATE_PATH)
+    bottle.TEMPLATE_PATH.insert(0, 'views')
     return template('index', option=chart)
 
 app = app()
