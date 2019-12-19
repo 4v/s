@@ -4,7 +4,7 @@ FROM python:3.7-alpine
 #     && cat /etc/apk/repositories \
 #     && echo -e "[global]\nindex-url = http://mirrors.aliyun.com/pypi/simple/\n[install]\ntrusted-host=mirrors.aliyun.com">>/etc/pip.conf 
 RUN apk add --update build-base python-dev python && pip install --upgrade pip \
-    && pip install cython numpy gunicorn  
+    && pip install cython numpy gunicorn
 RUN pip install pandas
 
 # https://github.com/9fevrier/docker-python-ta-lib/blob/master/Dockerfile
