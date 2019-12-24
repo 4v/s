@@ -1,0 +1,13 @@
+[Unit]
+Description=stocks
+
+[Service]
+Type=notify
+PIDFile=/var/run/stocks.pid
+TimeoutStartSec=0
+ExecStart=nohup python3 /root/srcs/s/stocks/server.py >/root/logs/nohup.out 2>&1 &
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
