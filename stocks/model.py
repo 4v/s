@@ -1,7 +1,9 @@
-# encoding: utf8
+#!/usr/bin/env python
+# -*- coding: utf-8; py-indent-offset:4 -*-
 
 import echart
-
+import numpy as np
+from scipy import stats
 # 运行模型，输入价格，输出每个价格点对应的操作
 # 输入：[{'open':开盘价,'close':收盘价},...]
 # 输出：每天需要采取的行动。S表示卖出，B表示买入，None表示不动
@@ -95,6 +97,11 @@ class SlopeModel:
                 return True
         return False
 
+
+    def _slope(self, y):
+        x = np.arange(len(y))
+        return stats.linregress(x, y)[0]
+
     def slope(self, values, n):
         result = []
         for i,e in enumerate(values):
@@ -105,14 +112,7 @@ class SlopeModel:
             if self.has_none(window):
                 result.append(None)
                 continue
-            xys = [(x,y) for x,y in enumerate(window)]
-            xs = [x for x,y in xys]
-            ys = [y for x,y in xys]
-            a = sum([x*y for x,y in xys])
-            b = n * self.average(xs) * self.average(ys)
-            c = sum([x**2 for x in xs])
-            r = (a-b)/(c-n*self.average(xs)**2)
-            result.append(r)
+            result.append(self._slope(window))
         return result
 
     def average(self, values):
