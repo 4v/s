@@ -1,0 +1,79 @@
+{
+    "log": {
+        "access": "/var/log/v2ray/access.log",
+        "error": "/var/log/v2ray/error.log",
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "port": 19934,
+            "listen": "127.0.0.1",
+            "tag": "vmess-in",
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "da76c128-fb32-4ba9-8853-74bef173388d",
+                        "alterId": 2
+                    },
+                    {
+                        "id": "6c94142d-12da-592a-6d92-512595e0976b",
+                        "alterId": 65
+                    },
+                    {
+                        "id": "f455520a-5ebe-d815-692b-17efbb11e56a",
+                        "alterId": 66
+                    },
+                    {
+                        "id": "ed8ed22f-e407-1237-c92e-2e95795e1e40",
+                        "alterId": 67
+                    },
+                    {
+                        "id": "70de5b9a-60a2-23bf-fe8c-57d5e1145619",
+                        "alterId": 68
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "/e36c746d/"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {},
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "blocked"
+        }
+    ],
+    "dns": {
+        "servers": [
+            "https+local://1.1.1.1/dns-query",
+            "1.1.1.1",
+            "1.0.0.1",
+            "8.8.8.8",
+            "8.8.4.4",
+            "localhost"
+        ]
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "vmess-in"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}
